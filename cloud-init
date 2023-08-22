@@ -1,0 +1,20 @@
+#cloud-config
+autoinstall:
+    version: 1
+    identity:
+        hostname: svr1
+        username: pandas
+        password: $6$fsP0P2abT.g59WYS$R3S5Qys4kCmy9eM/DPpgFkVJXTJD8OunuQINp2VThBrdjMTg2MjthnNWTA.KLWjmUXn9bGfleJoM1DxIG.L46/
+    ssh:
+        install-server: yes
+        allow-pw: true
+    packages:
+        - language-pack-ja
+    keyboard:
+        layout: jp
+    locale: en-US.UTF-8
+    refresh-installer:
+        update: yes
+    user-data:
+        timezone: "Asia/Tokyo"
+        disable_root: false
