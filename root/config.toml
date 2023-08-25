@@ -1,0 +1,10 @@
+[general]
+    location_id = "IWK"
+    location_pretty = "Yamaguchi, Japan"
+    domain = "svr1.yude.jp"
+
+[http]
+    destinations = [
+        "https://www.google.co.jp",
+        "https://example.com"
+    ]
