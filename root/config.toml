@@ -1,7 +1,7 @@
 [general]
     location_id = "IWK"
     location_pretty = "Yamaguchi, Japan"
-    domain = "svr1.yude.jp"
+    domain = "svr1.sasakulab.com"
 
 [http]
     destinations = [
