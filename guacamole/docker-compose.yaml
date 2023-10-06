@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  guacd:
+    container_name: my-guacd
+    image: guacamole/guacd
+    restart: always
+
+  guacamole_db:
+    container_name: my-guacamole-db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: sasakulab2023root
+      MYSQL_DATABASE: guacamole_db
+      MYSQL_USER: guacamole_user
+      MYSQL_PASSWORD: sasakulab2023
+    volumes:
+      - ./dbdata:/var/lib/mysql
+      - ./dbinit:/docker-entrypoint-initdb.d
+
+  guacamole:
+    container_name: my-guacamole
+    image: guacamole/guacamole
+    restart: always
+    environment:
+      GUACD_HOSTNAME: my-guacd
+      MYSQL_HOSTNAME: my-guacamole-db
+      MYSQL_DATABASE: guacamole_db
+      MYSQL_USER: guacamole_user
+      MYSQL_PASSWORD: sasakulab2023
+      GUACAMOLE_HOME: /guacamole-home
+      WEBAPP_CONTEXT: 'ROOT'
+    volumes:
+      - ./home:/guacamole-home
+    depends_on:
+      - guacamole_db
+      - guacd
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    user: root
+    restart: always
+    command: tunnel --no-autoupdate run --token $CLOUDFLARED_TOKEN
